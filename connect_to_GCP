@@ -1,0 +1,50 @@
+We can use bigquery query API to fetch the data into python code. 
+steps:
+https://cloud.google.com/bigquery/docs/quickstarts/quickstart-client-libraries
+
+Note: this api support is available to python 3.8 version but current conda has 3.7 so first create new python environment 
+for 3.8 in conda and then register it in jupiter notebook to switch the code to the new enviroment.
+
+conda config steps:
+
+conda install nb_conda
+conda create -n py38 python=3.8
+conda activate py38
+https://medium.com/@nrk25693/how-to-add-your-conda-environment-to-your-jupyter-notebook-in-just-4-steps-abeab8b8d084
+conda install -c anaconda ipykernel
+python -m ipykernel install --user --name=py38
+
+to remove notebook bug associated with kernal follow:
+https://stackoverflow.com/questions/48012811/jupyter-erroneous-environments-showing-up-in-conda-tab-with-nb-conda-extension
+
+jupyter kernelspec list
+
+tested ipythode code:
+
+from google.cloud import bigquery
+import os
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=r"C:\Users\hemant.khandare\Downloads\My First Project-9d2fa2583831.json"
+from google.cloud import bigquery
+#https://cloud.google.com/bigquery/docs/quickstarts/quickstart-client-libraries
+
+def query_stackoverflow():
+    client = bigquery.Client()
+    query_job = client.query("""
+        SELECT * FROM `data-to-insights.ecommerce.all_sessions_raw`
+        """)
+
+    results = query_job.result()  # Waits for job to complete.
+    f = open(r"C:\Users\hemant.khandare\Desktop\python\demofile2.txt", "w")
+   
+
+    for row in results:
+        #print("{} : {} views".format(row.url, row.view_count))
+        #print(str(row))
+        f.write(str(row[0]))
+        f.write("\n")
+        
+    f.close()
+
+
+if __name__ == '__main__':
+    query_stackoverflow()
