@@ -1,0 +1,3 @@
+resource.type="gce_instance"
+protoPayload.request."@type"="type.googleapis.com/compute.instances.insert"
+protoPayload.authorizationInfo.resourceAttributes.service="compute"
