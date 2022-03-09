@@ -50,6 +50,31 @@ table_id="mydataset1.emp3"
 pandas_gbq.to_gbq(df, table_id, project_id=project_id,if_exists='replace')
 
 
+# In[13]:
+
+
+import pandas as pd #added for bq
+
+
+#converting csv to dataframe
+a = pd.read_csv(r"C:\Users\hemant\Desktop\python\load_csv1.csv")
+
+
+# In[14]:
+
+
+a
+
+
+# # Load csv to bigquery
+
+# In[16]:
+
+
+table_id="mydataset1.emp4"
+pandas_gbq.to_gbq(a, table_id, project_id=project_id,if_exists='replace')
+
+
 # In[ ]:
 
 
